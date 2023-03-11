@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fortline_app/Screen/Dashboard_Screen.dart';
+import 'package:fortline_app/Screen/user_complain.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'Login_Screen.dart';
@@ -232,6 +233,11 @@ class _AdsAndMenuState extends State<AdsAndMenu> {
             case 0:
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
                 return DashboardScreen(widget._email);
+              }));
+              break;
+            case 1:
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
+                return UserComplain();
               }));
               break;
           }
