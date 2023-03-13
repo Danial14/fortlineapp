@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fortline_app/Screen/AdsAndMenuTwo.dart';
 
 import 'Login_Screen.dart';
 
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     Timer(const Duration(
         seconds: 3),
             (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginView(),),);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AdsAndMenuTwo(),),);
         }
     );
   }

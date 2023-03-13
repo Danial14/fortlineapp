@@ -223,45 +223,45 @@ class _AdsAndMenuState extends State<AdsAndMenu> {
           );
         })),
         Expanded(child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-          childAspectRatio: 1.5
-    ), itemBuilder: (ctx, position){
+            crossAxisCount: 2,
+            childAspectRatio: 1.5
+        ), itemBuilder: (ctx, position){
 
-      return InkWell(
-        onTap: (){
-          switch(position){
-            case 0:
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
-                return DashboardScreen(widget._email);
-              }));
-              break;
-            case 1:
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
-                return UserComplain();
-              }));
-              break;
-          }
-          print("tap");
+          return InkWell(
+            onTap: (){
+              switch(position){
+                case 0:
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
+                    return DashboardScreen(widget._email);
+                  }));
+                  break;
+                case 1:
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
+                    return UserComplain();
+                  }));
+                  break;
+              }
+              print("tap");
+            },
+            child: Column(
+              children: <Widget>[
+                CircleAvatar(backgroundImage: AssetImage(
+                    _iteMsData[position]["icon"]!
+                ),
+                  radius: 30,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(_iteMsData[position]["name"]!, style: TextStyle(color: Colors.red),
+                )
+              ],
+            ),
+          );
         },
-        child: Column(
-          children: <Widget>[
-            CircleAvatar(backgroundImage: AssetImage(
-                _iteMsData[position]["icon"]!
-            ),
-              radius: 30,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(_iteMsData[position]["name"]!, style: TextStyle(color: Colors.red),
-            )
-          ],
+          itemCount: 4,
         ),
-      );
-    },
-      itemCount: 4,
-    ),
-    )
+        )
 
       ]),
     );
