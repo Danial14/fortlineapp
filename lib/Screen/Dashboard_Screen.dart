@@ -11,6 +11,8 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'AdsAndMenuTwo.dart';
+
 class DashboardScreen extends StatefulWidget {
   late String _email;
   DashboardScreen(String email){
@@ -606,7 +608,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     ), onWillPop: () async{
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
-        return AdsAndMenu(widget._email);
+        return AdsAndMenuTwo(widget._email);
       }));
       return true;
     });

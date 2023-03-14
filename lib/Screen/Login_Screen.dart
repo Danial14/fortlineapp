@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fortline_app/Screen/AdsAndMenu.dart';
+import 'AdsAndMenuTwo.dart';
 import 'SignUp_Screen.dart';
 import 'package:http/http.dart' as http;
 
@@ -249,7 +250,7 @@ class _LoginViewState extends State<LoginView> {
           var usrName = record["items"][0]["insby"];
           var userPassword = record["items"][0]["password"];
           Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => AdsAndMenu(_email),
+            MaterialPageRoute(builder: (context) => AdsAndMenuTwo(_email),
             ),
           );
         }
