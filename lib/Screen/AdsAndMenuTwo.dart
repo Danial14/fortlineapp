@@ -215,7 +215,7 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                         childAspectRatio: 1.5
                     ), itemBuilder: (ctx, position){
 
-                      return GestureDetector(
+                      return InkWell(
                         onTap: (){
                           switch(position){
                             case 0:
