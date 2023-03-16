@@ -10,6 +10,7 @@ class UserComplain extends StatefulWidget {
 }
 
 class _UserComplainState extends State<UserComplain> {
+  final _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +22,14 @@ class _UserComplainState extends State<UserComplain> {
             color: Colors.red,
           ),
             clipper: MyClipper(),
+          ),
+          SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+              child: Column(
+                children: <Widget>[],
+              ),
+            ),
           )
         ],
       ),

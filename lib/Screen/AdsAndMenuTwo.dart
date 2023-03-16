@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fortline_app/Screen/Login_Screen.dart';
 import 'package:fortline_app/Screen/user_complain.dart';
 import 'package:transparent_pointer/transparent_pointer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,11 +11,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'Dashboard_Screen.dart';
 
 final List<String> imgList = [
-  'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-  'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-  'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
+  'assets/images/fortinet.jpg',
+  'assets/images/sophos.jpg',
+  'assets/images/ups.jpg',
+  'assets/images/dell_power.jpg',
 ];
 
 class AdsAndMenuTwo extends StatefulWidget {
@@ -33,15 +33,18 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
   int currentIndex = 0;
   List<Map<String, String>> _iteMsData = [
     {"name" : "Invoices", "icon" : "assets/images/invoices3.png"},
-    {"name" : "Complains", "icon" : "assets/images/complain.png"},
-    {"name" : "Profile", "icon" : "assets/images/profile.png"},
-    {"name" : "Products", "icon" : "assets/images/products.png"}
+    {"name" : "Complaints", "icon" : "assets/images/complain.png"},
+    {"name" : "Fortline profile", "icon" : "assets/images/solution.png"},
+    {"name" : "Products", "icon" : "assets/images/products.png"},
+    {"name" : "My account", "icon" : "assets/images/account.png"},
+    {"name" : "Call", "icon" : "assets/images/call.png"},{"name" : "My account", "icon" : "assets/images/account.png"},
+    {"name" : "Call", "icon" : "assets/images/call.png"}
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Dashboard',style: TextStyle(
+          title: const Text('Fortline',style: TextStyle(
             fontFamily: "SpaceGrotesk",
           ),
           ),
@@ -57,19 +60,6 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
 
               ),
                 items: [
-                  DropdownMenuItem(value: 'Call',child: Container(child: Row(
-                    children: const <Widget>[
-                      Icon(Icons.call,color: Color(0xFF0f388a),),
-
-                      SizedBox(width: 8,),
-
-                      Text('Call',style: TextStyle(
-                        fontFamily: "SpaceGrotesk",
-                      ),
-                      ),
-                    ],
-                  ),),
-                  ),
                   DropdownMenuItem(value: 'logout',child: Container(
                     child: Row(
                       children: const <Widget>[
@@ -85,35 +75,12 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                     ),
                   ),
                   ),
-                  DropdownMenuItem(value: 'Account',child: Container(
-                    child: Row(
-                      children: const <Widget>[
-                        Icon(Icons.manage_accounts,color: Color(0xFF0f388a),),
-
-                        SizedBox(width: 8,),
-
-                        Text('Account',style: TextStyle(
-                          fontFamily: "SpaceGrotesk",
-                        ),
-                        ),
-                      ],
-                    ),
-                  ),)
                 ],
                 onChanged: (itemIdentifier) async{
-                  if(itemIdentifier == 'Account'){
-                    //showAds = true;
-                    /*Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginView(),
-                  ),
-                  );*/
-                  }
-                  else if(itemIdentifier == 'Call') {
-                    final Uri launchUri = Uri(
-                      scheme: 'tel',
-                      path: "123456789",
-                    );
-                    await launchUrl(launchUri);
-
+                  if(itemIdentifier == "logout"){
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
+                      return LoginView();
+                    }));
                   }
                 },
               ),
@@ -128,11 +95,12 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
           Container(
               height: MediaQuery.of(context).size.height * 0.3,
               width: MediaQuery.of(context).size.width * 1,
-              color: const Color(0xffffdb58).withOpacity(0.6),
+              color: Colors.white,
               /*decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15))
             ),*/
               child: Stack(
+                fit: StackFit.expand,
                 children: [
                   InkWell(
                     onTap: () {
@@ -141,12 +109,12 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                     child: CarouselSlider(
                       items: imgList
                           .map(
-                            (item) => ClipRRect(child: Image.network(
+                            (item) => ClipRRect(child: Image.asset(
                           item,
                           fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.of(context).size.width * 1,
                         ),
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       )
                           .toList(),
@@ -192,12 +160,12 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                 ],
               )
           ),
-          Positioned(top: MediaQuery.of(context).size.height * 0.29,
+          Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.29),
               child: Container(
-                  height: MediaQuery.of(context).size.height * 0.7,
+                  height: MediaQuery.of(context).size.height * 1,
                   width: MediaQuery.of(context).size.width * 1,
                   decoration: BoxDecoration(
-                      color: Colors.redAccent,
+                      color: Colors.white,
                       borderRadius: BorderRadius.only(topRight: Radius.circular(13), topLeft: Radius.circular(13)),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
@@ -209,8 +177,8 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                       ]
                   ),
                   child: Column(children: <Widget>[
-                    SizedBox(height: (MediaQuery.of(context).size.height * 0.7) * 0.10,),
-                    Expanded(child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    SizedBox(height: (MediaQuery.of(context).size.height * 0.7) * 0.04,),
+                    Expanded(child: GridView.builder(scrollDirection: Axis.vertical,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 1.5
                     ), itemBuilder: (ctx, position){
@@ -246,9 +214,9 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                         ),
                       );
                     },
-                      itemCount: 4,
+                      itemCount: _iteMsData.length,
                     ),
-                    ),
+                    )
                   ],)
               ))
         ],
