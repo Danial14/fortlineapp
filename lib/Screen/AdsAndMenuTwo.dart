@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fortline_app/Screen/Login_Screen.dart';
+import 'package:fortline_app/Screen/customer_complain.dart';
 import 'package:fortline_app/Screen/user_complain.dart';
 import 'package:transparent_pointer/transparent_pointer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -37,8 +38,7 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
     {"name" : "Fortline profile", "icon" : "assets/images/solution.png"},
     {"name" : "Products", "icon" : "assets/images/products.png"},
     {"name" : "My account", "icon" : "assets/images/account.png"},
-    {"name" : "Call", "icon" : "assets/images/call.png"},{"name" : "My account", "icon" : "assets/images/account.png"},
-    {"name" : "Call", "icon" : "assets/images/call.png"}
+    {"name" : "Call", "icon" : "assets/images/call.png"},
   ];
   @override
   Widget build(BuildContext context) {
@@ -165,6 +165,15 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                   height: MediaQuery.of(context).size.height * 1,
                   width: MediaQuery.of(context).size.width * 1,
                   decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Colors.red,
+                        Colors.black54
+                      ],
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      tileMode: TileMode.repeated
+                    ),
                       color: Colors.white,
                       borderRadius: BorderRadius.only(topRight: Radius.circular(13), topLeft: Radius.circular(13)),
                       boxShadow: <BoxShadow>[
@@ -193,7 +202,7 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                               break;
                             case 1:
                               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
-                                return UserComplain();
+                                return CustomerComplain(widget._email);
                               }));
                               break;
                           }
