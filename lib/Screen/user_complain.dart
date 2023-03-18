@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fortline_app/Screen/customer_complain.dart';
 
 import 'customclipper.dart';
 import 'package:http/http.dart' as http;
@@ -22,10 +23,16 @@ class _UserComplainState extends State<UserComplain> {
   var _referenceNo;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(child: Scaffold(
+      appBar: AppBar(
+        title: Text("Complaint form"),
+        backgroundColor: const Color(0xffce0505),
+      ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          ClipPath(child: Container(
+          /*ClipPath(child: Container(
             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .5 * .2,
             left: 10
             ),
@@ -48,82 +55,114 @@ class _UserComplainState extends State<UserComplain> {
             ),
           ),
             clipper: MyClipper(),
-          ),
+          ),*/
           SingleChildScrollView(
-              child: Form(
-                key: _formKey,
+            child: Form(
+              key: _formKey,
               child: Padding(padding: EdgeInsets.all(15),
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              onSaved: (val){
-                                _referenceNo = val!;
-                              },
-                              validator: (val){
-                                if(val == null || val == ""){
-                                  return "Please enter valid reference no";
-                                }
-                              },
-                              decoration: InputDecoration(
-                                  hintText: "Reference no",
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                      borderSide: BorderSide(color: Colors.black12)
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                      borderSide: BorderSide(color: const Color(0xffce0505))
-                                  )
-                              ),
-                            ),
-                            TextFormField(
-                              maxLines: 7,
-                              onSaved: (val){
-                                _coMplain = val!;
-                              },
-                              validator: (val){
-                                if(val == null || val == ""){
-                                  return "Please enter some sort of complaint message";
-                            }
-                              },
-                              decoration: InputDecoration(
-                                  hintText: "Complaints",
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                      borderSide: BorderSide(color: Colors.black12)
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                      borderSide: BorderSide(color: const Color(0xffce0505))
-                                  )
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            ElevatedButton(onPressed: (){
-                              _submitComplaint();
-                            }, child: Text("Submit"),
-                              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffce0505)),
-                            )
-                          ],
-                        ),),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      onSaved: (val){
+                        _referenceNo = val!;
+                      },
+                      validator: (val){
+                        if(val == null || val == ""){
+                          return "Please enter valid reference no";
+                        }
+                      },
+                      decoration: InputDecoration(
+                          hintText: "Reference no",
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(color: Colors.black12)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(color: const Color(0xffce0505))
+                          )
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    TextFormField(
+                      maxLines: 7,
+                      onSaved: (val){
+                        _coMplain = val!;
+                      },
+                      validator: (val){
+                        if(val == null || val == ""){
+                          return "Please enter some sort of complaint message";
+                        }
+                      },
+                      decoration: InputDecoration(
+                          hintText: "Complaints",
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(color: Colors.black12)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(color: const Color(0xffce0505))
+                          )
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    ElevatedButton(onPressed: (){
+                      _submitComplaint();
+                    }, child: Text("Submit"),
+                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffce0505)),
+                    )
+                  ],
+                ),),
             ),
           )
         ],
       ),
+    ),
+    onWillPop: ()async{
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
+        return CustomerComplain(widget._email);
+      }));
+      return true;
+    },
     );
   }
   void _submitComplaint() async{
     bool isValid = _formKey.currentState!.validate();
     if(isValid){
       _formKey.currentState!.save();
-      var response = await http.post(Uri.http("142.132.194.26:1251","/ords/fortline/reg/complain"), headers: <String, String>{
-        "Content" : "application/json"
-      },
-      body: jsonEncode({
-        "INSBY" : widget._email,
-        "TKTREMARKS" : _coMplain,
-        "PRNCPLREFNO" : _referenceNo
-      })
+      try {
+        var response = await http.post(
+            Uri.http("142.132.194.26:1251", "/ords/fortline/reg/complain"),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode({
+              "insby": widget._email,
+              "tktremarks": _coMplain,
+              "prncplrefno": _referenceNo
+            })
+        );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("Complain successfully posted",style: TextStyle(
+          fontSize: 16,
+          fontFamily: "SpaceGrotesk",
+          color: Color(0xffce0505),
+
+        ),
+        ))
+        );
+        return;
+      }
+      catch(e){
+        print("Complain post error: ${e.toString()}");
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("Error in posting the complain",style: TextStyle(
+        fontSize: 16,
+        fontFamily: "SpaceGrotesk",
+        color: Color(0xffce0505),
+
+      ),
+      ))
       );
     }
   }

@@ -193,7 +193,7 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                     ), itemBuilder: (ctx, position){
 
                       return InkWell(
-                        onTap: (){
+                        onTap: () async{
                           switch(position){
                             case 0:
                               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
@@ -205,6 +205,13 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                                 return CustomerComplain(widget._email);
                               }));
                               break;
+                            case 5:
+                              final Uri launchUri = Uri(
+                                    scheme: 'tel',
+                                    path: "123456789",
+                                    );
+                                  await launchUrl(launchUri);
+                                  break;
                           }
                           print("tap");
                         },
