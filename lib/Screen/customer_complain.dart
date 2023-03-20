@@ -41,32 +41,37 @@ class _CustomerComplainState extends State<CustomerComplain> {
                     child: Column(
                       children: <Widget>[
                         Row(children: <Widget>[
-                          Text("Ticket no : ", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
+                          Text("Ticket no : ", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),
+                          softWrap: true,
+                          ),
                           Text(_complaints[position]["tktno_c"], style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
                         ],
                         ),
                         SizedBox(height: 10,),
                         Row(children: <Widget>[
-                          Text("Reference no : ", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
-                          Text(_complaints[position]["prncplrefno"], style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
+                          Text("Reference no : ",softWrap: true, style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
+                          Text(_complaints[position]["prncplrefno"],softWrap: true, style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
                         ],
                         ),
                         SizedBox(height: 10,),
                         Row(children: <Widget>[
                           Text("Complaint : ", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
-                          Text(_complaints[position]["tktremarks"], style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
+                          Expanded(
+                            child: Text(_complaints[position]["tktremarks"], style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
+                            flex: 1,
+                          )
                         ],
                         ),
                         SizedBox(height: 10,),
                         Row(children: <Widget>[
-                          Text("Customer : ", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
-                          Text(_complaints[position]["sbsname"], style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
+                          Text("Customer : ",softWrap: true, style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
+                          Text(_complaints[position]["sbsname"],softWrap: true, style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
                         ],
                         ),
                         SizedBox(height: 10,),
                         Row(children: <Widget>[
-                          Text("Status : ", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
-                          Text(_complaints[position]["tktstsid"], style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
+                          Text("Status : ",softWrap: true, style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
+                          Text(_complaints[position]["tktstsid"] != null ? _complaints[position]["tktstsid"] : "null", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
                         ],
                         ),
                       ],

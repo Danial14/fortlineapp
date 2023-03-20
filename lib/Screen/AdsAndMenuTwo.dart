@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fortline_app/Screen/Login_Screen.dart';
 import 'package:fortline_app/Screen/customer_complain.dart';
+import 'package:fortline_app/Screen/pdf_viewer.dart';
+import 'package:fortline_app/Screen/products.dart';
 import 'package:fortline_app/Screen/user_complain.dart';
 import 'package:transparent_pointer/transparent_pointer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -205,10 +207,20 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
                                 return CustomerComplain(widget._email);
                               }));
                               break;
+                            case 2:
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
+                                return PdfScreen(widget._email);
+                              }));
+                              break;
+                            case 3:
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
+                                return Products(widget._email);
+                              }));
+                              break;
                             case 5:
                               final Uri launchUri = Uri(
                                     scheme: 'tel',
-                                    path: "123456789",
+                                    path: "021111992999",
                                     );
                                   await launchUrl(launchUri);
                                   break;
