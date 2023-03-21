@@ -28,96 +28,66 @@ class _UserComplainState extends State<UserComplain> {
         title: Text("Complaint form"),
         backgroundColor: const Color(0xffce0505),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          /*ClipPath(child: Container(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .5 * .2,
-            left: 10
-            ),
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * .5,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  Colors.red,
-                  Colors.black12
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                tileMode: TileMode.repeated
-              )
-            ),
-            child: const Text('Complaints',style: TextStyle(
-              fontFamily: "SpaceGrotesk",
-            ),
-            ),
-          ),
-            clipper: MyClipper(),
-          ),*/
-          SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Padding(padding: EdgeInsets.all(15),
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      onSaved: (val){
-                        _referenceNo = val!;
-                      },
-                      validator: (val){
-                        if(val == null || val == ""){
-                          return "Please enter valid reference no";
-                        }
-                      },
-                      decoration: InputDecoration(
-                          hintText: "Reference no",
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(color: Colors.black12)
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(color: const Color(0xffce0505))
-                          )
-                      ),
+      body: Center(child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(padding: EdgeInsets.all(15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[TextFormField(
+                onSaved: (val){
+                  _referenceNo = val!;
+                },
+                validator: (val){
+                  if(val == null || val == ""){
+                    return "Please enter valid reference no";
+                  }
+                },
+                decoration: InputDecoration(
+                    hintText: "Reference no",
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(color: Colors.black12)
                     ),
-                    SizedBox(height: 10,),
-                    TextFormField(
-                      maxLines: 7,
-                      onSaved: (val){
-                        _coMplain = val!;
-                      },
-                      validator: (val){
-                        if(val == null || val == ""){
-                          return "Please enter some sort of complaint message";
-                        }
-                      },
-                      decoration: InputDecoration(
-                          hintText: "Complaints",
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(color: Colors.black12)
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(color: const Color(0xffce0505))
-                          )
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-                    ElevatedButton(onPressed: (){
-                      _submitComplaint();
-                    }, child: Text("Submit"),
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffce0505)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(color: const Color(0xffce0505))
                     )
-                  ],
-                ),),
-            ),
-          )
-        ],
-      ),
+                ),
+              ),
+                SizedBox(height: 10,),
+                TextFormField(
+                  maxLines: 7,
+                  onSaved: (val){
+                    _coMplain = val!;
+                  },
+                  validator: (val){
+                    if(val == null || val == ""){
+                      return "Please enter some sort of complaint message";
+                    }
+                  },
+                  decoration: InputDecoration(
+                      hintText: "Complaints",
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.black12)
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: const Color(0xffce0505))
+                      )
+                  ),
+                ),
+                SizedBox(height: 10,),
+                ElevatedButton(onPressed: (){
+                  _submitComplaint();
+                }, child: Text("Submit"),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffce0505)),
+                )
+              ],
+            ),),
+        ),
+      ),)
     ),
     onWillPop: ()async{
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){

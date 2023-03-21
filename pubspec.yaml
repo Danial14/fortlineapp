@@ -95,6 +95,9 @@ flutter:
     - assets/images/ups.jpg
     - assets/images/dell_power.jpg
     - assets/Fortline_Company profile.pdf
+    - assets/images/profile.png
+    - assets/images/mail.png
+    - assets/images/product.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

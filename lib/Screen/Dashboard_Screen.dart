@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:fortline_app/Screen/AdsAndMenu.dart';
 import 'package:fortline_app/Screen/Invoice_Details_Screen.dart';
 import 'package:fortline_app/Screen/Login_Screen.dart';
+import 'package:fortline_app/Screen/homescreen.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
@@ -608,7 +608,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     ), onWillPop: () async{
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
-        return AdsAndMenuTwo(widget._email);
+        return HomeScreen(widget._email);
       }));
       return true;
     });

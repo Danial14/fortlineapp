@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fortline_app/Screen/AdsAndMenuTwo.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
+import 'homescreen.dart';
+
 class PdfScreen extends StatelessWidget {
   late String _email;
   PdfScreen(String email){
@@ -13,7 +15,7 @@ class PdfScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async{
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
-          return AdsAndMenuTwo(_email);
+          return HomeScreen(_email);
         }));
         return true;
       },

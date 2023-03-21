@@ -5,6 +5,8 @@ import 'AdsAndMenuTwo.dart';
 import 'SignUp_Screen.dart';
 import 'package:http/http.dart' as http;
 
+import 'homescreen.dart';
+
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
   static String email = "";
@@ -250,7 +252,7 @@ class _LoginViewState extends State<LoginView> {
           var usrName = record["items"][0]["insby"];
           var userPassword = record["items"][0]["password"];
           Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => AdsAndMenuTwo(_email),
+            MaterialPageRoute(builder: (context) => HomeScreen(_email),
             ),
           );
         }
