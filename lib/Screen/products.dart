@@ -1,7 +1,11 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fortline_app/Screen/AdsAndMenuTwo.dart';
 import 'package:fortline_app/Screen/product_item.dart';
+import 'package:http/http.dart' as http;
 
 import 'homescreen.dart';
 
@@ -17,6 +21,7 @@ class Products extends StatefulWidget {
   }
 }
 class _ProductsState extends State<Products>{
+  List<Uint8List> images = [];
   @override
   Widget build(BuildContext context) {
     return WillPopScope(child: Scaffold(
@@ -31,13 +36,13 @@ class _ProductsState extends State<Products>{
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 1.5,
+                  //childAspectRatio: 1.5,
                   //crossAxisSpacing: 15,
                 ),
                 itemBuilder: (ctx, position){
-                  return ProductItem();
+                  return ProductItem(images[position]);
                 },
-                itemCount: 4,
+                itemCount: images.length,
               );
             }
           }
@@ -55,7 +60,14 @@ class _ProductsState extends State<Products>{
   }
   Future<bool> _getProducts() async{
     try{
-      return true;
+      var response = await http.get(Uri.http("142.132.194.26:1251","/ords/fortline/reg/product"));
+      var blobs = jsonDecode(response.body.toString())["items"];
+      if(blobs.length > 0) {
+        for (int i = 0; i < blobs.length; i++) {
+          images.add(base64Decode(blobs[i]["contents_blob"]));
+        }
+        return true;
+      }
     }
     catch(e){
       print("Error fetching : ${e.toString()}");
