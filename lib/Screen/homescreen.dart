@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:fortline_app/Screen/Dashboard_Screen.dart';
 import 'package:fortline_app/Screen/customer_complain.dart';
 import 'package:fortline_app/Screen/pdf_viewer.dart';
@@ -5,6 +8,7 @@ import 'package:fortline_app/Screen/products.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 
 import 'Login_Screen.dart';
@@ -20,16 +24,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final Uri _url = Uri.parse('tel://021111992999');
-  List imageList = [
-    {"id": 1, "image_path": 'assets/images/ups.jpg'},
-    {"id": 2, "image_path": 'assets/images/sophos.jpg'},
-    {"id": 3, "image_path": 'assets/images/dell_power.jpg'},
-    {"id": 4, "image_path": 'assets/images/fortinet.jpg'}
-
-  ];
+  final List<Uint8List> imgList = [];
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
   String assetsPdfPath = '';
+  bool _gotIMages = false;
 
   @override
   void initState() {
@@ -155,63 +154,74 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Stack(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            print(currentIndex);
-                          },
-                          child: CarouselSlider(
-                            items: imageList
-                                .map(
-                                  (item) => Image.asset(
-                                item['image_path'],
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                            )
-                                .toList(),
-                            carouselController: carouselController,
-                            options: CarouselOptions(
-                              scrollPhysics: const BouncingScrollPhysics(),
-                              autoPlay: true,
-                              aspectRatio: 2,
-                              viewportFraction: 1,
-                              onPageChanged: (index, reason) {
-                                setState(() {
-                                  currentIndex = index;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          left: 0,
-                          right: 0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: imageList.asMap().entries.map((entry) {
-                              return GestureDetector(
-                                onTap: () => carouselController.animateToPage(entry.key),
-                                child: Container(
-                                  width: currentIndex == entry.key ? 17 : 7,
-                                  height: 7.0,
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 3.0,
+                    child: FutureBuilder<bool>(builder: (ctx, snapshot){
+                      if(snapshot.hasData){
+                        if(snapshot.data!){
+                          return Stack(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  print(currentIndex);
+                                },
+                                child: CarouselSlider(
+                                  items: imgList
+                                      .map(
+                                        (item) => Image.memory(
+                                      item,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                    ),
+                                  )
+                                      .toList(),
+                                  carouselController: carouselController,
+                                  options: CarouselOptions(
+                                    scrollPhysics: const BouncingScrollPhysics(),
+                                    autoPlay: true,
+                                    aspectRatio: 2,
+                                    viewportFraction: 1,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        currentIndex = index;
+                                      });
+                                    },
                                   ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: currentIndex == entry.key
-                                          ? Colors.white
-                                          : Color(0xffce0505)),
                                 ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ],
-                    ),
+                              ),
+                              Positioned(
+                                bottom: 10,
+                                left: 0,
+                                right: 0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: imgList.asMap().entries.map((entry) {
+                                    return GestureDetector(
+                                      onTap: () => carouselController.animateToPage(entry.key),
+                                      child: Container(
+                                        width: currentIndex == entry.key ? 17 : 7,
+                                        height: 7.0,
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 3.0,
+                                        ),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            color: currentIndex == entry.key
+                                                ? Colors.white
+                                                : Color(0xffce0505)),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                      }
+                      return Center(
+                        child: Text("Something went wrong"),
+                      );
+                    },
+                    future: _getImages(),
+                    )
                   ),
                 ),
 
@@ -415,5 +425,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
       ),
     );
+  }
+  Future<bool> _getImages() async{
+    try{
+      if(!_gotIMages){
+      var response = await http.get(Uri.http("194.163.154.21:1251","/ords/fortline/reg/notification"));
+      var data = jsonDecode(response.body.toString());
+      var blobs = data["items"];
+      if(blobs.length > 0) {
+        for (int i = 0; i < blobs.length; i++) {
+          imgList.add(base64Decode(blobs[i]["contents_blob"]));
+        }
+        _gotIMages = true;
+      }
+      }
+    }
+    catch(e){
+      print(e.toString());
+    }
+    return _gotIMages;
   }
 }

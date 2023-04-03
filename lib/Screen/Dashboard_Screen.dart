@@ -79,7 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 }
   Future<bool> _getData() async{
     try{
-      var response = await http.get(Uri.http("142.132.194.26:1251","/ords/fortline/reg/invoice",{
+      var response = await http.get(Uri.http("194.163.154.21:1251","/ords/fortline/reg/invoice",{
         "insby" : widget._email
       }));
       print(jsonDecode(response.body.toString()).toString());

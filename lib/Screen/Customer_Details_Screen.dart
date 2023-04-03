@@ -27,7 +27,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
   Future<void> _updateStatus(String? status) async{
 
     try{
-      var response = await http.put(Uri.http("142.132.194.26:1251","/ords/fortline/reg/paysts"),headers: <String,String>{
+      var response = await http.put(Uri.http("194.163.154.21:1251","/ords/fortline/reg/paysts"),headers: <String,String>{
         'Content-Type': 'application/json; charset=UTF-8',
       }, body: jsonEncode(<String, String?>{
         "invstsid" : status,

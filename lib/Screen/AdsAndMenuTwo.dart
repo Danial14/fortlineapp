@@ -263,7 +263,7 @@ class _AdsAndMenuTwoState extends State<AdsAndMenuTwo> {
   }
   Future<bool> _getImages() async{
     try{
-      var response = await http.get(Uri.http("142.132.194.26:1251","/ords/fortline/reg/notification"));
+      var response = await http.get(Uri.http("194.163.154.21:1251","/ords/fortline/reg/notification"));
       var data = jsonDecode(response.body.toString());
       var blobs = data["items"];
       if(blobs.length > 0){

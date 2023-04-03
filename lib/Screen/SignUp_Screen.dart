@@ -264,7 +264,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try{
         print("inside try");
         String? Token;
-        var response = await http.post(Uri.http("142.132.194.26:1251","/ords/fortline/reg/post")
+        var response = await http.post(Uri.http("194.163.154.21:1251","/ords/fortline/reg/post")
             ,headers: <String,String>{
               'Content-Type': 'application/json; charset=UTF-8',
             }

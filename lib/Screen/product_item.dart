@@ -76,7 +76,7 @@ class _ProductItemState extends State<ProductItem>{
                   flex: 1,
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: const Color(0xffce0505),
                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(15), bottomLeft: Radius.circular(15))
                     ),
                     height: MediaQuery.of(context).size.height * 0.5,
@@ -84,9 +84,17 @@ class _ProductItemState extends State<ProductItem>{
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: Row(
                         children: <Widget>[
-                          Text("Ups"),
+                          Text("Ups",style: TextStyle(
+                            fontFamily: "SpaceGrotesk",
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),),
                           SizedBox(width: 5,),
-                          Expanded(child: Text("40\$",
+                          Expanded(child: Text("40\$" ,style: TextStyle(
+                            fontFamily: "SpaceGrotesk",
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                             textAlign: TextAlign.right,)),
                         ],
                       ),

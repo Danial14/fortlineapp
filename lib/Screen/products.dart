@@ -26,7 +26,10 @@ class _ProductsState extends State<Products>{
   Widget build(BuildContext context) {
     return WillPopScope(child: Scaffold(
       appBar: AppBar(
-        title: Text("Products"),
+        backgroundColor: const Color(0xffce0505),
+        title: Text("Products",style: TextStyle(
+          fontFamily: "SpaceGrotesk",
+        ),),
       ),
       body: FutureBuilder<bool>(
         future: _getProducts(),
@@ -60,7 +63,7 @@ class _ProductsState extends State<Products>{
   }
   Future<bool> _getProducts() async{
     try{
-      var response = await http.get(Uri.http("142.132.194.26:1251","/ords/fortline/reg/product"));
+      var response = await http.get(Uri.http("194.163.154.21:1251","/ords/fortline/reg/product"));
       var blobs = jsonDecode(response.body.toString())["items"];
       if(blobs.length > 0) {
         for (int i = 0; i < blobs.length; i++) {
