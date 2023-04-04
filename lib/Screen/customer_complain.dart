@@ -73,7 +73,7 @@ class _CustomerComplainState extends State<CustomerComplain> {
                         SizedBox(height: 10,),
                         Row(children: <Widget>[
                           Text("Status : ",softWrap: true, style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),),
-                          Text(_complaints[position]["tktstsid"] != null ? _complaints[position]["tktstsid"] : "null", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
+                          Text(_complaints[position]["tktstsid"] != null ? _complaints[position]["tktstsid"] : "O", style: TextStyle(color: position % 2 == 0 ? Colors.white : const Color(0xffce0505)),)
                         ],
                         ),
                       ],
@@ -117,6 +117,7 @@ class _CustomerComplainState extends State<CustomerComplain> {
       print("complains : ${response.body.toString()}");
       _complaints = (jsonDecode(response.body.toString()))["items"];
       if(_complaints.length > 0) {
+        _complaints = _complaints.reversed.toList();
         return true;
       }
     }

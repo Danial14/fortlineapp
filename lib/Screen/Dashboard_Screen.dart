@@ -223,7 +223,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),),
                 ),
-                DropdownMenuItem(value: 'logout',child: Container(
+                /*DropdownMenuItem(value: 'logout',child: Container(
                   child: Row(
                     children: const <Widget>[
                       Icon(Icons.exit_to_app,color: Color(0xFF0f388a),),
@@ -237,16 +237,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ],
                   ),
                 ),
-                ),
+                ),*/
               ],
               onChanged: (itemIdentifier) async{
-                if(itemIdentifier == 'logout'){
+                /*if(itemIdentifier == 'logout'){
                   showAds = true;
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginView(),
                   ),
                   );
-                }
-                else if(itemIdentifier == 'Download Invoices'){
+                }*/
+                if(itemIdentifier == 'Download Invoices'){
                   if(data.length > 0) {
                     final PdfDocument document = PdfDocument();
 // Add a new page to the document.
@@ -357,7 +357,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   return Column(
                     children:  [
                       const SizedBox(height: 10,),
-                      const Padding(
+                      /*const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Align(
                           alignment: Alignment.topLeft,
@@ -370,7 +370,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                         ),
 
-                      ),
+                      ),*/
 
                       const SizedBox(height: 10,),
                       Padding(

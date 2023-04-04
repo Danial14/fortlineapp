@@ -45,7 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.purple, Colors.orange])) ,
+              colors: [
+                Color(0xffb00202),
+                Color(0xfff54e4e),
+                Color(0xfff77e7e),
+
+              ],
+          ),
+      ) ,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -239,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                       child: Card(
-
+                        color: Colors.transparent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -263,6 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(width: 20,),
                     InkWell(child: Card(
+                      color: Colors.transparent,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -301,6 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (ctx) => PdfScreen(widget._email)));
                       },
                       child: Card(
+                        color: Colors.transparent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -322,6 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(width: 20,),
                     InkWell(child: Card(
+                      color: Colors.transparent,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -358,6 +368,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
+                        color: Colors.transparent,
+
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -378,6 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
+                        color: Colors.transparent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -397,6 +410,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
+                        color: Colors.transparent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
