@@ -50,7 +50,7 @@ class _ProductsState extends State<Products>{
             }
           }
           return Center(
-            child: Text("Something went wrong"),
+            child: CircularProgressIndicator(),
           );
         },
       ),

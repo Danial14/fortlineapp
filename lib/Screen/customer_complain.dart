@@ -86,7 +86,7 @@ class _CustomerComplainState extends State<CustomerComplain> {
             }
           }
           return Center(
-            child: const Text("Something went wrong"),
+            child: const CircularProgressIndicator(),
           );
         },
       ),

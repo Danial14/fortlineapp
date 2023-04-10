@@ -164,68 +164,87 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: FutureBuilder<bool>(builder: (ctx, snapshot){
                       if(snapshot.hasData){
                         if(snapshot.data!){
-                          return Stack(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  print(currentIndex);
-                                },
-                                child: CarouselSlider(
-                                  items: imgList
-                                      .map(
-                                        (item) => Image.memory(
-                                      item,
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
+                          return Container(width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.2870,
+                            child: Stack(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    print(currentIndex);
+                                  },
+                                  child: CarouselSlider(
+                                    items: imgList
+                                        .map(
+                                          (item) => Image.memory(
+                                        item,
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      ),
+                                    )
+                                        .toList(),
+                                    carouselController: carouselController,
+                                    options: CarouselOptions(
+                                      scrollPhysics: const BouncingScrollPhysics(),
+                                      autoPlay: true,
+                                      aspectRatio: 2,
+                                      viewportFraction: 1,
+                                      onPageChanged: (index, reason) {
+                                        setState(() {
+                                          currentIndex = index;
+                                        });
+                                      },
                                     ),
-                                  )
-                                      .toList(),
-                                  carouselController: carouselController,
-                                  options: CarouselOptions(
-                                    scrollPhysics: const BouncingScrollPhysics(),
-                                    autoPlay: true,
-                                    aspectRatio: 2,
-                                    viewportFraction: 1,
-                                    onPageChanged: (index, reason) {
-                                      setState(() {
-                                        currentIndex = index;
-                                      });
-                                    },
                                   ),
                                 ),
-                              ),
-                              Positioned(
-                                bottom: 10,
-                                left: 0,
-                                right: 0,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: imgList.asMap().entries.map((entry) {
-                                    return GestureDetector(
-                                      onTap: () => carouselController.animateToPage(entry.key),
-                                      child: Container(
-                                        width: currentIndex == entry.key ? 17 : 7,
-                                        height: 7.0,
-                                        margin: const EdgeInsets.symmetric(
-                                          horizontal: 3.0,
+                                Positioned(
+                                  bottom: 10,
+                                  left: 0,
+                                  right: 0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: imgList.asMap().entries.map((entry) {
+                                      return GestureDetector(
+                                        onTap: () => carouselController.animateToPage(entry.key),
+                                        child: Container(
+                                          width: currentIndex == entry.key ? 17 : 7,
+                                          height: 7.0,
+                                          margin: const EdgeInsets.symmetric(
+                                            horizontal: 3.0,
+                                          ),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              color: currentIndex == entry.key
+                                                  ? Colors.white
+                                                  : Color(0xffce0505)),
                                         ),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: currentIndex == entry.key
-                                                ? Colors.white
-                                                : Color(0xffce0505)),
-                                      ),
-                                    );
-                                  }).toList(),
+                                      );
+                                    }).toList(),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           );
                         }
                       }
-                      return Center(
-                        child: Text("Something went wrong"),
-                      );
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xffb00202),
+                              Color(0xfff54e4e),
+                              Color(0xfff77e7e),
+
+                            ],
+                          ),
+                        ),
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.2870,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                      ));
                     },
                     future: _getImages(),
                     )

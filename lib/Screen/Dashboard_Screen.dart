@@ -199,10 +199,149 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return WillPopScope(child: Scaffold(
       backgroundColor:  Colors.white,
       appBar: AppBar(
-        actions:  [
+        actions:  <Widget>[
+          Padding(padding: const EdgeInsets.only(right: 5),
+          child: IconButton(
+            icon: Icon(Icons.download,color: Color(0xFF0f388a)),
+            onPressed: () async{
+              if(data.length > 0) {
+                try {
+                  final PdfDocument document = PdfDocument();
+// Add a new page to the document.
+                  final PdfPage page = document.pages.add();
+// Create a PDF grid class to add tables.
+                  final PdfGrid grid = PdfGrid();
+                  grid.columns.add(count: 6);
+                  final PdfGridRow headerRow = grid.headers.add(1)[0];
+                  headerRow.cells[0].value = 'Invoice ID';
+                  headerRow.cells[1].value = 'Invoice Date';
+                  headerRow.cells[2].value = 'Invoice Amount';
+                  headerRow.cells[3].value = 'Rebate Amount';
+                  headerRow.cells[4].value = 'Redeemed Amount';
+                  headerRow.cells[5].value = 'Balance Rebate';
+                  headerRow.style = PdfGridRowStyle(
+                      backgroundBrush: PdfBrushes.dimGray,
+                      textPen: PdfPens.lightGoldenrodYellow,
+                      textBrush: PdfBrushes.darkOrange,
+                      font: PdfStandardFont(PdfFontFamily.timesRoman, 12));
+                  PdfGridRow row;
+                  grid.style.cellPadding = PdfPaddings(left: 5, top: 5);
+                  int reedeemedAmount = 0;
+                  int totalBalanceRebate = 0;
+                  for (int i = 0; i <= data.length; i++) {
+                    row = grid.rows.add();
+                    if (i == data.length) {
+                      row.cells[0].style = PdfGridCellStyle(borders: PdfBorders(
+                          left: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          right: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          top: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          bottom: PdfPen(PdfColor(255, 255, 255), width: 0)));
+                      row.cells[1].style = PdfGridCellStyle(borders: PdfBorders(
+                          left: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          right: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          top: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          bottom: PdfPen(PdfColor(255, 255, 255), width: 0)));
+                      row.cells[2].style = PdfGridCellStyle(borders: PdfBorders(
+                          left: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          right: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          top: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          bottom: PdfPen(PdfColor(255, 255, 255), width: 0)));
+                      row.cells[3].style = PdfGridCellStyle(borders: PdfBorders(
+                          left: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          right: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          top: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          bottom: PdfPen(PdfColor(255, 255, 255), width: 0)));
+                      row.cells[4].style = PdfGridCellStyle(borders: PdfBorders(
+                          left: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          right: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          top: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          bottom: PdfPen(PdfColor(255, 255, 255), width: 0)));
+                      row.cells[5].style = PdfGridCellStyle(borders: PdfBorders(
+                          left: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          right: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          top: PdfPen(PdfColor(255, 255, 255), width: 0),
+                          bottom: PdfPen(PdfColor(255, 255, 255), width: 0)));
+                      row.cells[2].value = amount.toString();
+                      row.cells[3].value = totalRebate.toString();
+                      row.cells[4].value = reedeemedAmount.toString();
+                      row.cells[5].value = totalBalanceRebate.toString();
+                      break;
+                    }
+                    else if (i % 2 == 0) {
+                      row.style = PdfGridRowStyle(
+                          backgroundBrush: PdfBrushes.lightGoldenrodYellow,
+                          textPen: PdfPens.indianRed,
+                          textBrush: PdfBrushes.lightYellow,
+                          font: PdfStandardFont(PdfFontFamily.timesRoman, 12));
+                    }
+                    else {
+                      row.style = PdfGridRowStyle(
+                          backgroundBrush: PdfBrushes.dimGray,
+                          textPen: PdfPens.lightGoldenrodYellow,
+                          textBrush: PdfBrushes.darkOrange,
+                          font: PdfStandardFont(PdfFontFamily.timesRoman, 12));
+                    }
+                    var record = data[i];
+                    row.cells[0].value = record["invno_c"];
+                    String date = record["invdt"];
+                    date = date.substring(0, date.indexOf("T"));
+                    row.cells[1].value = date;
+                    row.cells[2].value = record["invamt"].toString();
+                    row.cells[3].value = record["rewrdamt"].toString();
+                    var redeemed = record["invstsid"];
+                    if (redeemed != null) {
+                      reedeemedAmount = record["rewrdamt"] + reedeemedAmount;
+                      row.cells[4].value = record["rewrdamt"].toString();
+                    }
+                    else {
+                      row.cells[4].value = "0";
+                    }
+                    var balanceRebate = record["rewrdamt"] - int.parse(row
+                        .cells[4].value);
+                    row.cells[5].value = balanceRebate.toString();
+                    totalBalanceRebate = balanceRebate + totalBalanceRebate;
+                  }
+                  grid.draw(
+                      page: page,
+                      bounds: Rect.fromLTWH(
+                          0, 0, page
+                          .getClientSize()
+                          .width, page
+                          .getClientSize()
+                          .height));
+                  File pdfFile = File((await _getPath()) + "/${DateTime.now()
+                      .toString()}_invoices.pdf");
+                  await pdfFile.create();
+                  pdfFile.writeAsBytes(await document.save());
+// Dispose the document.
+                  document.dispose();
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Ledger successfully downloaded",style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: "SpaceGrotesk",
+                    color: Color(0xffce0505),
 
+                  ),
+                  ),
+                  ),
+                  );
+                }
+                catch(e){
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Could not download",style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: "SpaceGrotesk",
+                    color: Color(0xffce0505),
 
-          Padding(
+                  ),
+                  ),
+                  ),
+                  );
+                }
+              }
+            },
+          ),
+          ),
+
+          /*Padding(
             padding: const EdgeInsets.only(right: 5),
             child: DropdownButton(underline: Container() ,icon:const Icon(
               Icons.more_vert,
@@ -223,7 +362,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),),
                 ),
-                /*DropdownMenuItem(value: 'logout',child: Container(
+                *//*DropdownMenuItem(value: 'logout',child: Container(
                   child: Row(
                     children: const <Widget>[
                       Icon(Icons.exit_to_app,color: Color(0xFF0f388a),),
@@ -237,15 +376,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ],
                   ),
                 ),
-                ),*/
+                ),*//*
               ],
               onChanged: (itemIdentifier) async{
-                /*if(itemIdentifier == 'logout'){
+                *//*if(itemIdentifier == 'logout'){
                   showAds = true;
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginView(),
                   ),
                   );
-                }*/
+                }*//*
                 if(itemIdentifier == 'Download Invoices'){
                   if(data.length > 0) {
                     final PdfDocument document = PdfDocument();
@@ -335,7 +474,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 }
               },
             ),
-          ),
+          ),*/
 
 
         ],
