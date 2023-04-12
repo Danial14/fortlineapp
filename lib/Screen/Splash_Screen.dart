@@ -42,41 +42,20 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       body: SafeArea(
         child:Container(
           decoration: const BoxDecoration(
-        gradient:  LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        stops: [
-        0.1,
-        0.6,
-        0.9,
-        ],
-        colors: [
-          Color(0xffce0505),
-          Color(0xfffa0202),
-          Color(0xffce0505),
-
-        ],
+              image: DecorationImage(image: AssetImage("assets/images/splash.png"),fit: BoxFit.cover)
           ),
-          ),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children:  [
-            const Center(child: Text('FORTLINE',style: TextStyle(fontSize: 60,
-                color: Color(0xffffffff),
-            fontFamily: "SpaceGrotesk",
-            fontWeight: FontWeight.w500),),
-            ),
-            const SizedBox(height: 30,),
+            SizedBox(height: 40,),
 
-            Center(
-              child: SpinKitFadingCircle(
-                color: const Color(0xffffffff),
+            SpinKitFadingCircle(
+               color: Colors.red,
                 size: 40.0,
-                controller: _controller,
-              ),
+              controller: _controller,
             ),
+
           ],
         ),
       ),

@@ -14,9 +14,11 @@ class PdfScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async{
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx){
           return HomeScreen(_email);
-        }));
+        }),
+        ModalRoute.withName("/")
+        );
         return true;
       },
       child: Scaffold(

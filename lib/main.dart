@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fortline Customer App',
 
-      home: AllProducts()//SplashScreen(),
+      home: SplashScreen(),
     ),
     );
   }

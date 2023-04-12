@@ -42,20 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Container(
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xffb00202),
-                Color(0xfff54e4e),
-                Color(0xfff77e7e),
-
-              ],
+        image: DecorationImage(image: AssetImage("assets/images/backImage2.png"),fit: BoxFit.cover)
           ),
-      ) ,
+
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+
 
           actions: [
             Padding(
@@ -126,8 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ],
-          backgroundColor: Colors.transparent,
-          title: const Text('Fortline',style: TextStyle(
+          backgroundColor: Color(0xffff0000),
+          title: const Text('FORTLINE',style: TextStyle(
             fontFamily: "SpaceGrotesk",
             fontSize: 25,
           ),
@@ -142,14 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 margin: EdgeInsets.only(left: 10),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: const Text('Welcome',style: TextStyle(
-                    fontFamily: "SpaceGrotesk",
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 30,
 
-                  ),
-                  ),
                 ),
               ),
               Padding(
@@ -165,8 +151,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       if(snapshot.hasData){
                         if(snapshot.data!){
                           return Container(width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.2870,
+                          //height: MediaQuery.of(context).size.height * 0.30,
                             child: Stack(
+                              clipBehavior: Clip.none,
                               children: [
                                 InkWell(
                                   onTap: () {
@@ -179,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         item,
                                         fit: BoxFit.cover,
                                         width: double.infinity,
+                                            height: double.infinity,
                                       ),
                                     )
                                         .toList(),
@@ -241,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.2870,
+                          height: MediaQuery.of(context).size.height * 0.30,
                           child: Center(
                             child: CircularProgressIndicator(),
                       ));
@@ -265,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                       child: Card(
-                        color: Colors.transparent,
+                        color: Color(0xfffce2dc),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -289,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(width: 20,),
                     InkWell(child: Card(
-                      color: Colors.transparent,
+                      color: Color(0xfffce2dc),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -328,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (ctx) => PdfScreen(widget._email)));
                       },
                       child: Card(
-                        color: Colors.transparent,
+                        color: Color(0xfffce2dc),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -350,7 +338,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(width: 20,),
                     InkWell(child: Card(
-                      color: Colors.transparent,
+                      color: Color(0xfffce2dc),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -395,16 +383,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Container(
                           width: screenWidth * 30 / 100,
                           child: Center(
-                            child: Text('Dell',style: TextStyle(
-                                fontSize: 25,
-                                fontFamily: "SpaceGrotesk",
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold
-                            ),),
+                            child: Image.asset("assets/images/dell.png"),
                           ),
                         ),
                       ),
                     ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+
+                        child: Container(
+                          width: screenWidth * 30 / 100,
+                          child: Center(
+                            child: Image.asset("assets/images/hp2.png"),
+                          ),
+                        ),
+                      ),
 
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -416,37 +410,101 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Container(
                           width: screenWidth * 30 / 100,
                           child: Center(
-                            child: Text('HP',style: TextStyle(
-                                fontSize: 25,
-                                fontFamily: "SpaceGrotesk",
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold
-                            ),),
+                            child: Image.asset("assets/images/lenovo.png"),
                           ),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        color: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
+                      child: Container(
                           width: screenWidth * 30 / 100,
                           child: Center(
-                            child: Text('Lenovo',style: TextStyle(
-                                fontSize: 25,
-                                fontFamily: "SpaceGrotesk",
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold
-                            ),),
+                            child: Image.asset("assets/images/kaspersky.jpeg"),
                           ),
+                        ),
+                      ),
+
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: screenWidth * 30 / 100,
+                        child: Center(
+                          child: Image.asset("assets/images/microsoft2.png"),
                         ),
                       ),
                     ),
 
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: screenWidth * 30 / 100,
+                        child: Center(
+                          child: Image.asset("assets/images/extreme.jpg"),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: screenWidth * 30 / 100,
+                        child: Center(
+                          child: Image.asset("assets/images/trend.jpg"),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: screenWidth * 30 / 100,
+                        child: Center(
+                          child: Image.asset("assets/images/vmware.jpg"),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: screenWidth * 30 / 100,
+                        child: Center(
+                          child: Image.asset("assets/images/forcepoint.jpg"),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: screenWidth * 30 / 100,
+                        child: Center(
+                          child: Image.asset("assets/images/cisco.jpg"),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: screenWidth * 30 / 100,
+                        child: Center(
+                          child: Image.asset("assets/images/sangfor.jpg"),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: screenWidth * 30 / 100,
+                        child: Center(
+                          child: Image.asset("assets/images/veeam.jpg"),
+                        ),
+                      ),
+                    ),
 
                   ],
                 ),

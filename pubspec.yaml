@@ -99,6 +99,21 @@ flutter:
     - assets/images/profile.png
     - assets/images/mail.png
     - assets/images/product.png
+    - assets/images/dell.png
+    - assets/images/hp2.png
+    - assets/images/lenovo.png
+    - assets/images/backImage.png
+    - assets/images/backImage2.png
+    - assets/images/kaspersky.jpeg
+    - assets/images/splash.png
+    - assets/images/microsoft2.png
+    - assets/images/extreme.jpg
+    - assets/images/trend.jpg,
+    - assets/images/vmware.jpg
+    - assets/images/forcepoint.jpg
+    - assets/images/cisco.jpg
+    - assets/images/sangfor.jpg
+    - assets/images/veeam.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
