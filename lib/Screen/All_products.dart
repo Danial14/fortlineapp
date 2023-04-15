@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fortline_app/Screen/products.dart';
+import 'package:fortline_app/Screen/providers/products_provider.dart';
+import 'package:provider/provider.dart';
 
 class AllProducts extends StatefulWidget {
   const AllProducts({Key? key}) : super(key: key);
@@ -9,13 +11,34 @@ class AllProducts extends StatefulWidget {
 }
 
 class _AllProductsState extends State<AllProducts> {
+  var _productsProvider;
+  List<Map<String, dynamic>> productsData = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.delayed(Duration(seconds: 0), (){
+      print("inside");
+      _productsProvider = Provider.of<ProductsProvider>(context, listen: false);
+      if(!(_productsProvider.fetchAndAddProducts())){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("Could not fetch products",style: TextStyle(
+          fontSize: 16,
+          fontFamily: "SpaceGrotesk",
+          color: Color(0xffce0505),
+        ),
+        )));
+      }
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    _productsProvider = Provider.of<ProductsProvider>(context);
+    productsData = _productsProvider.getProductCategories;
     return Scaffold(
       appBar: AppBar(
         title: Text("All Products"),
       ),
-      body: ListView.builder(itemBuilder: (ctx, position){
+      body: productsData.length == 0 ? Center(child: Text("Loading"),) : ListView.builder(itemBuilder: (ctx, position){
         return Padding(padding: EdgeInsets.only(top: 10),
         child: Container(
             color: Colors.green,
@@ -27,7 +50,7 @@ class _AllProductsState extends State<AllProducts> {
               decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(width: 2))
               ),
-              child: Text("test product", style: TextStyle(
+              child: Text(productsData[position]["category"], style: TextStyle(
                 fontSize: 30
               ),),
             ),
@@ -79,7 +102,7 @@ class _AllProductsState extends State<AllProducts> {
                               padding: EdgeInsets.symmetric(horizontal: 5),
                               child: Row(
                                 children: <Widget>[
-                                  Text("Ups",style: TextStyle(
+                                  Text(productsData[position]["products"][index],style: TextStyle(
                                     fontFamily: "SpaceGrotesk",
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -103,7 +126,7 @@ class _AllProductsState extends State<AllProducts> {
               );
             },
               scrollDirection: Axis.horizontal,
-              itemCount: 20,
+              itemCount: productsData[position]["products"].length,
             ),
             )
           ],
@@ -111,7 +134,7 @@ class _AllProductsState extends State<AllProducts> {
         ),
         );
       },
-      itemCount: 5,
+      itemCount: productsData.length,
       ),
     );
   }

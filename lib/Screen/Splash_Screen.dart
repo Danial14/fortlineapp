@@ -13,23 +13,19 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
-  late final AnimationController _controller;
+class _SplashScreenState extends State<SplashScreen>{
 
   @override
   void dispose() {
     // TODO: implement dispose
-
-    _controller.dispose();
     super.dispose();
   }
 
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = AnimationController(vsync: this,duration: const Duration(seconds: 3))..repeat();
     Timer(const Duration(
-        seconds: 3),
+        seconds: 6),
             (){
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginView(),),);
         }
@@ -41,23 +37,11 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     return Scaffold(
       body: SafeArea(
         child:Container(
+          width: double.infinity,
+          height: double.infinity,
           decoration: const BoxDecoration(
               image: DecorationImage(image: AssetImage("assets/images/splash.png"),fit: BoxFit.cover)
           ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children:  [
-            SizedBox(height: 40,),
-
-            SpinKitFadingCircle(
-               color: Colors.red,
-                size: 40.0,
-              controller: _controller,
-            ),
-
-          ],
-        ),
       ),
     ),
     );

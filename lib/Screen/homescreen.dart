@@ -29,14 +29,22 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   String assetsPdfPath = '';
   bool _gotIMages = false;
+  Future<bool>? _imgFuture;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    Future.delayed(Duration.zero, (){
+      _imgFuture = _getImages();
+      setState(() {
+
+      });
+    });
   }
   @override
   Widget build(BuildContext context) {
+    print("homescreen");
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -234,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: CircularProgressIndicator(),
                       ));
                     },
-                    future: _getImages(),
+                    future: _imgFuture,
                     )
                   ),
                 ),
@@ -524,10 +532,11 @@ class _HomeScreenState extends State<HomeScreen> {
       var data = jsonDecode(response.body.toString());
       var blobs = data["items"];
       if(blobs.length > 0) {
+        _gotIMages = true;
         for (int i = 0; i < blobs.length; i++) {
           imgList.add(base64Decode(blobs[i]["contents_blob"]));
         }
-        _gotIMages = true;
+        print("images fetched");
       }
       }
     }
